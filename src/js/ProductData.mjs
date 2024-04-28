@@ -11,13 +11,30 @@ export default class ProductData {
     this.category = category;
     this.path = `../json/${this.category}.json`;
   }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
-  }
+  async getData() { //add async
+    //try {
+    const response = await fetch(this.path);
+    const data = await convertToJson(response);
+    return data;
+      //return fetch(this.path)
+      //.then(convertToJson)
+      //.then((data) => data);
+    } //catch (error) {
+      //throw error;
+    //}
+  //}  
   async findProductById(id) {
+    //const products = await this.getData();
+    //return products.find((item) => item.Id === id);
+    //try {
     const products = await this.getData();
-    return products.find((item) => item.Id === id);
+    const product = products.find((item) => item.Id === id);
+      //if (!product) {
+        //throw new Error(`Product with ID ${id} not found`);
+      //}
+    return product;
+    //} //catch (error) {
+      //throw error;
+    //}
   }
 }
