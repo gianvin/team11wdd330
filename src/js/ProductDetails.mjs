@@ -1,12 +1,8 @@
-import { setLocalStorage, getParam } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
-import ProductDetails from "./ProductDetails.mjs";
+import { setLocalStorage } from "./utils.mjs";
 
-const productId = getParam("product");
-const dataSource = new ProductData("tents");
 
 function productDetailsTemplate(product) {
-    return `<section classs="product-details">
+    return `<section class="product-detail">
         <h3>${product.Brand.Name}</h3>
         <h2 classs="divider">${product.NameWithoutBrand}</h2>
         <img class="divider" src="${product.Image}" alt="${product.Name}">
@@ -28,14 +24,14 @@ export default class ProductDetails {
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
         this.renderProductDetails("main");
-        document.getElementById("addToCart").addEventListener("click", this.addToCart().bind(this));
+        document.getElementById("addToCart").addEventListener("click", this.addToCart.bind(this));
     };
 
     addToCart() {
         setLocalStorage("so-cart", this.product);
     }
 
-    renderProductDetails() {
+    renderProductDetails(selector) {
         const element = document.querySelector(selector);
         element.insertAdjacentHTML("afterBegin", productDetailsTemplate(this.product));
     }
