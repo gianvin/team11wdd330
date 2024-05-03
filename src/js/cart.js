@@ -2,35 +2,8 @@ import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
-
-  // Empty Cart Error fixed
-  const htmlItems = cartItems?.length
-    ? cartItems.map((item) => cartItemTemplate(item))
-    : [];
-
-  // query select the product list element
-  const productList = document.querySelector(".product-list");
-
-  // Total $ in Cart finished
-  if (cartItems?.length) {
-    // show hidden cart footer
-    document.querySelector(".cart-footer").style.display = "block";
-
-    // query select the p element that will hold the total
-    let cartTotal = document.querySelector(".cart-total");
-
-    // calculate total
-    let total = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
-
-    // update html of the p
-    cartTotal.innerHTML = `Total: $${total.toFixed(2)}`;
-
-    // update product list
-    productList.innerHTML = htmlItems.join("");
-  } else {
-    // show empty cart message
-    productList.innerHTML = "Your cart is empty";
-  }
+  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
 function cartItemTemplate(item) {
