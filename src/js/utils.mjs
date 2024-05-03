@@ -44,4 +44,3 @@ export function renderListWithTemplate(
   parentElement.insertAdjacentHTML(position, htmlItems.join(""));
 
 }
-
