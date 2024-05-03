@@ -1,12 +1,18 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
+  let price = ""
+  if(product.FinalPrice < product.SuggestedRetailPrice){
+    price = `<p class="product-card__price discount">$${product.FinalPrice} <span class="strike">$${product.SuggestedRetailPrice}</span></p>`
+  } else {
+    price = `<p class="product-card__price">${product.FinalPrice}</p>`
+  }
   return `<li class="product-card">
       <a href="product_pages/index.html?product=${product.Id}">
         <img src="${product.Image}" alt="Image of ">
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.Name}</h2>
-        <p class="product-card__price">${product.FinalPrice}</p>
+        ${price}
       </a>
     </li>`;
 }

@@ -1,12 +1,18 @@
-import { setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 
 function productDetailsTemplate(product) {
+    let price = ""
+    if(product.FinalPrice < product.SuggestedRetailPrice){
+      price = `<p class="product-card__price discount">$${product.FinalPrice} <span class="strike">$${product.SuggestedRetailPrice}</span></p>`
+    } else {
+      price = `<p class="product-card__price">${product.FinalPrice}</p>`
+    }
     return `<section class="product-detail">
         <h3>${product.Brand.Name}</h3>
         <h2 classs="divider">${product.NameWithoutBrand}</h2>
         <img class="divider" src="${product.Image}" alt="${product.Name}">
-        <p class="product-card__price">$${product.FinalPrice}</p>
+        ${price}
         <p class="product__color">${product.Colors[0].ColorName}</p>
         <p class="product__description">${product.DescriptionHtmlSimple}</p>
         <div class="product-detail__add">
@@ -27,7 +33,10 @@ export default class ProductDetails {
         document.getElementById("addToCart").addEventListener("click", this.addToCart.bind(this));
     };
     addToCart() {
-        setLocalStorage("so-cart", this.product);
+        let cart = getLocalStorage("so-cart");
+        if (cart === null || !Array.isArray(cart)) cart = [];
+        cart.push(this.product);
+        setLocalStorage("so-cart", cart);
     }
     renderProductDetails(selector) {
         const element = document.querySelector(selector);

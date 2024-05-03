@@ -168,11 +168,13 @@ button {
 
 /* Start cart list card styles */
 .cart-card {
+  position: relative;
   display: grid;
   grid-template-columns: 25% auto 15%;
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+  width: 100%;
 }
 
 .cart-card__image {
@@ -219,4 +221,31 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+.hide {
+  display: none;
+}
+
+.discount {
+  color: red;
+}
+.strike {
+  color: rgb(85, 85, 85);
+  text-decoration: line-through;
+}
+
+.delete {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  cursor: pointer;
+  background-color: rgb(211, 211, 211);
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  border-radius: 20%;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-size: 1.2em;
 }
