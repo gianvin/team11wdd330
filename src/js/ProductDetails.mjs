@@ -26,15 +26,11 @@ export default class ProductDetails {
         this.renderProductDetails("main");
         document.getElementById("addToCart").addEventListener("click", this.addToCart.bind(this));
     };
-
     addToCart() {
         setLocalStorage("so-cart", this.product);
     }
-
     renderProductDetails(selector) {
         const element = document.querySelector(selector);
         element.insertAdjacentHTML("afterBegin", productDetailsTemplate(this.product));
     }
 }
-
-
