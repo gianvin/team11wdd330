@@ -13,15 +13,6 @@ export function getLocalStorage(key) {
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-// set a listener for both touchend and click
-export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
-    event.preventDefault();
-    callback();
-  });
-  qs(selector).addEventListener("click", callback);
-}
-
 //Url parameter
 export function getParam(param) {
   const queryString = window.location.search;
@@ -37,10 +28,20 @@ export function renderListWithTemplate(
   position = "afterbegin",
   clear = false,
 ) {
+
+  const htmlStrings = list.map(templateFn);
   if (clear) {
     parentElement.innerHTML = "";
   }
-  parentElement.insertAdjacentHTML(position, htmlItems.join(""));
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 
+}
+// set a listener for both touchend and click
+export function setClick(selector, callback) {
+  qs(selector).addEventListener("touchend", (event) => {
+    event.preventDefault();
+    callback();
+  });
+  qs(selector).addEventListener("click", callback);
 }
 
