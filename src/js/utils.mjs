@@ -35,12 +35,12 @@ export function renderListWithTemplate(
   parentElement,
   list,
   position = "afterbegin",
-  clear=false,
+  clear = false,
 ) {
-  if(clear){
+  if (clear) {
     parentElement.innerHTML = "";
   }
-  const htmlItems = list.map((item) => templateFn(item));
   parentElement.insertAdjacentHTML(position, htmlItems.join(""));
 
 }
+
