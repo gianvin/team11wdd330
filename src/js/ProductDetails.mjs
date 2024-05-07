@@ -11,7 +11,7 @@ function productDetailsTemplate(product) {
     return `<section class="product-detail">
         <h3>${product.Brand.Name}</h3>
         <h2 classs="divider">${product.NameWithoutBrand}</h2>
-        <img class="divider" src="${product.Image}" alt="${product.Name}">
+        <img class="divider" src="${product.Images.PrimaryMedium}" alt="${product.Name}">
         ${price}
         <p class="product__color">${product.Colors[0].ColorName}</p>
         <p class="product__description">${product.DescriptionHtmlSimple}</p>
