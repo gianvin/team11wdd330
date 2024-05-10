@@ -10,7 +10,11 @@ function productDetailsTemplate(product) {
   return `<section class="product-detail">
         <h3>${product.Brand.Name}</h3>
         <h2 classs="divider">${product.NameWithoutBrand}</h2>
-        <img class="divider" src="${product.Images.PrimaryMedium}" alt="${product.Name}">
+        <picture>
+            <source srcset="${product.Images.PrimaryExtraLarge}" media="(min-width: 768px)">
+            <source srcset="${product.Images.PrimaryLarge}" media="(min-width: 400px)">
+            <img class="divider" src="${product.Images.PrimaryMedium}" alt="${product.Name}">
+        </picture>
         ${price}
         <p class="product__color">${product.Colors[0].ColorName}</p>
         <p class="product__description">${product.DescriptionHtmlSimple}</p>

@@ -8,7 +8,5 @@ const category = getParam("category");
 const dataSource = new ProductData();
 const productListing = new ProductListing(category, dataSource, listEl);
 
-document.querySelector(".top-products").innerHTML = `Top Products: ${category}`
+document.querySelector(".top-products").innerHTML = `Top Products: ${category}`;
 productListing.init();
-
-

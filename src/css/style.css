@@ -278,8 +278,8 @@ footer {
 }
 
 .categories {
-  display:grid;
-  grid-template-columns:  repeat(4, 1fr);
-  width:80%;
-  margin:auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 80%;
+  margin: auto;
 }
