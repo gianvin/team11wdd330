@@ -35,9 +35,14 @@ export default class ShoppingCart {
 
   renderCartContents() {
     const cartItems = getLocalStorage("so-cart");
-    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    this.showTotal(cartItems);
-    document.querySelector(this.parentSelector).innerHTML = htmlItems.join("");
+    if(cartItems?.length){
+      const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+      this.showTotal(cartItems);
+      document.querySelector(this.parentSelector).innerHTML = htmlItems.join("");
+    } else {
+      document.querySelector(this.parentSelector).innerHTML = "Your Cart is Empty";
+      this.hideTotal();
+    }
   }
   addEventListener() {
     document
