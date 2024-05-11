@@ -10,7 +10,7 @@ function convertToJson(res) {
 
 export default class ProductData {
   async getData(category) {
-    const res = await fetch(baseURL+`products/search/${category}`)
+    const res = await fetch(baseURL + `products/search/${category}`)
     const data = await convertToJson(res)
     return data.Result
   }
