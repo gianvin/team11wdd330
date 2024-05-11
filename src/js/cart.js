@@ -6,12 +6,6 @@ function renderCartContents() {
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
-function renderTotal(cartItems) {
-  let total = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
-  document.querySelector(".cart-footer").classList.remove("hide");
-  document.querySelector(".cart-total").innerHTML = `Total: $${total}`;
-}
-
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
@@ -43,3 +37,9 @@ document.querySelector(".product-list").addEventListener("click", (e) => {
     renderCartContents();
   }
 });
+
+function renderTotal(cartItems) {
+  let total = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+  document.querySelector(".cart-footer").classList.remove("hide");
+  document.querySelector(".cart-total").innerHTML = `Total: $${total}`;
+}
