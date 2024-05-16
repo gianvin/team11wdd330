@@ -33,9 +33,9 @@
 
           <fieldset>
             <legend>Shipping Address</legend>
-            <label for="st">
+            <label for="street">
               Street Address:*
-              <input type="text" name="st" id="st" required />
+              <input type="text" name="street" id="street" required />
             </label>
             <label for="city">
               City:*
@@ -53,26 +53,39 @@
 
           <fieldset>
             <legend>Payment</legend>
-            <label for="card">
+            <label for="cardNumber">
               Credit Card:*
-              <input type="text" name="card" id="card" required />
+              <input value="1234123412341234" type="text" name="cardNumber" id="cardNumber" required />
             </label>
-            <label for="exp">
+            <label for="expiration">
               Expiration Date:*
-              <input type="text" name="exp" id="exp" required />
+              <input type="text" name="expiration" id="expiration" required />
             </label>
-            <label for="code">
+            <label for="code" >
               Security Code:*
-              <input type="text" name="code" id="code" required />
+              <input value="123" type="text" name="code" id="code" required />
             </label>
           </fieldset>
 
           <div id="summary">
             <h3 class="divider">Order Summary</h3>
-            <p id="subtotal">Subtotal:</p>
-            <p id="shipping">Shipping Estimate:</p>
-            <p id="tax">Tax:</p>
-            <p id="total">Order Total:</p>
+            <label for="subtotal">
+              Subtotal:
+              <input type="text" name="subtotal" id="subtotal" disabled>
+            </label>
+            <label for="shipping">
+              Shipping Estimate:
+              <input type="text" name="shipping" id="shipping" disabled>
+            </label>
+            <label for="tax">
+              Tax:
+              <input type="text" name="tax" id="tax" disabled>
+            </label>
+            <label for="total">
+              Total:
+              <input type="text" name="total" id="total" disabled>
+            </label>
+            
           </div>
 
           <button type="submit">Place Order</button>

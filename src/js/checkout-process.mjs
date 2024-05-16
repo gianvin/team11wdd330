@@ -1,4 +1,23 @@
+import ExternalServices from "./ExternalServices.mjs";
 import { getLocalStorage } from "./utils.mjs";
+
+function packageItems(formData, cart){
+  let jsonData = {}
+  formData.forEach((value, key) => {
+    jsonData[key] = value
+  })
+  jsonData["items"] = cart.map(item => {
+    return {
+      id: item.Id,
+      name: item.Name,
+      price: item.FinalPrice,
+      quantity: item.qty
+    }
+  })
+  jsonData["orderDate"] = new Date()
+  return jsonData
+}
+
 
 export default class CheckoutProcess {
   constructor() {
@@ -9,12 +28,12 @@ export default class CheckoutProcess {
     this.totalEl = document.getElementById("total");
   }
   renderSubtotal() {
-    this.subtotalEl.innerHTML = `Subtotal: $${this.calculateSubtotal().toFixed(2)}`;
+    this.subtotalEl.value = `$${this.calculateSubtotal().toFixed(2)}`;
   }
   renderTotal() {
-    this.shippingEl.innerHTML = `Shipping Estimate: $${this.calculateShipping()}`;
-    this.taxEl.innerHTML = `Tax: $${this.calculateTax().toFixed(2)}`;
-    this.totalEl.innerHTML = `Order Total: $${this.calculateTotal().toFixed(2)}`;
+    this.shippingEl.value = `$${this.calculateShipping()}`;
+    this.taxEl.value = `$${this.calculateTax().toFixed(2)}`;
+    this.totalEl.value = `$${this.calculateTotal().toFixed(2)}`;
   }
   calculateSubtotal() {
     let total = this.cart.reduce(
@@ -43,5 +62,12 @@ export default class CheckoutProcess {
     return (
       this.calculateSubtotal() + this.calculateShipping() + this.calculateTax()
     );
+  }
+
+  async checkout(event){
+    event.preventDefault()
+    let form = new FormData(event.target)
+    let data = packageItems(form, this.cart)
+    ExternalServices.checkout(data)
   }
 }
