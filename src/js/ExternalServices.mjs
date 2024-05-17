@@ -1,10 +1,11 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 function convertToJson(res) {
+  let json = res.json();
   if (res.ok) {
-    return res.json();
+    return json;
   } else {
-    throw new Error("Bad Response");
+    throw new { name: "servicesError", message: json }();
   }
 }
 
@@ -22,6 +23,7 @@ export default class ExternalServices {
   }
 
   static async checkout(data) {
+
     const options = {
       method: "POST",
       headers: {
@@ -29,8 +31,6 @@ export default class ExternalServices {
       },
       body: JSON.stringify(data),
     };
-    fetch("https://wdd330-backend.onrender.com:3000/checkout", options).then((res) => {
-      console.log(res);
-    });
+    return await fetch("http://server-nodejs.cit.byui.edu:3000/checkout", options)
   }
 }

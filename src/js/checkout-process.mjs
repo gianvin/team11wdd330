@@ -1,23 +1,28 @@
 import ExternalServices from "./ExternalServices.mjs";
-import { getLocalStorage } from "./utils.mjs";
+import { addAlert, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
-function packageItems(formData, cart){
-  let jsonData = {}
+function packageItems(formData) {
+  let jsonData = {};
   formData.forEach((value, key) => {
-    jsonData[key] = value
-  })
-  jsonData["items"] = cart.map(item => {
+    console.log(value, key);
+    jsonData[key] = value;
+  });
+  jsonData["items"] = this.cart.map((item) => {
     return {
       id: item.Id,
       name: item.Name,
       price: item.FinalPrice,
-      quantity: item.qty
-    }
-  })
-  jsonData["orderDate"] = new Date()
-  return jsonData
-}
+      quantity: item.qty,
+    };
+  });
+  jsonData["orderDate"] = new Date();
 
+  jsonData["tax"] = this.calculateTax();
+  jsonData["shipping"] = this.calculateShipping();
+  jsonData["total"] = this.calculateTotal();
+
+  return jsonData;
+}
 
 export default class CheckoutProcess {
   constructor() {
@@ -64,10 +69,27 @@ export default class CheckoutProcess {
     );
   }
 
-  async checkout(event){
-    event.preventDefault()
-    let form = new FormData(event.target)
-    let data = packageItems(form, this.cart)
-    ExternalServices.checkout(data)
+  async checkout(event) {
+    event.preventDefault();
+    let form = new FormData(event.target);
+    let data = packageItems.bind(this)(form);
+
+    let chk_status = event.target.checkValidity();
+    event.target.reportValidity();
+    if (chk_status) {
+      ExternalServices.checkout(data).then(async (res) => {
+        if (res.ok) {
+          setLocalStorage("so-cart", []);
+          location.assign("/checkout/success.html");
+        } else {
+          document.getElementById("alerts").innerHTML = ""
+          let err = await res.json();
+          for (const [key, value] of Object.entries(err)) {
+            addAlert(value);
+          }
+          window.scrollTo(0,0)
+        }
+      });
+    }
   }
 }

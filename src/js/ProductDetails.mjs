@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { addAlert, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
   let price = "";
@@ -38,6 +38,8 @@ export default class ProductDetails {
       .addEventListener("click", this.addToCart.bind(this));
   }
   addToCart() {
+    document.getElementById("alerts").innerHTML = ""
+    addAlert("Item added successfully!");
     let cart = getLocalStorage("so-cart");
     if (cart === null || !Array.isArray(cart)) cart = [];
 

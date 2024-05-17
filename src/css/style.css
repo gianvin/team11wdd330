@@ -311,13 +311,40 @@ input:valid {
   border-left: 5px solid var(--secondary-color);
 }
 
-
-label:has(input:disabled){
+label:has(input:disabled) {
   flex-direction: row;
   align-items: center;
 }
-input:disabled{
-  background-color:white;
-  border:none;
-  font-size:unset;
+input:disabled {
+  background-color: white;
+  border: none;
+  font-size: unset;
+}
+
+#alerts {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0a768c5;
+}
+
+#alerts div {
+  border:2px solid var(--primary-color);
+  position: relative;
+  height: 2em;
+  display: flex;
+  align-items: center;
+}
+
+#alerts button {
+  color: black;
+  background-color: inherit;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2em;
+  height: 2em;
+  padding: 0;
+  margin: 0;
+  font-size: 1em;
 }
