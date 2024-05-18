@@ -32,5 +32,6 @@ export default class ExternalServices {
       body: JSON.stringify(data),
     };
     return await fetch("http://server-nodejs.cit.byui.edu:3000/checkout", options)
+    // return await fetch("https://wdd330-backend.onrender.com:3000/checkout", options)
   }
 }

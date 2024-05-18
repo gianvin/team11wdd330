@@ -1,7 +1,6 @@
 import { addAlert, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
-  console.log(product)
   let price = "";
   if (product.FinalPrice < product.SuggestedRetailPrice) {
     price = `<p class="product-card__price discount">$${product.FinalPrice} <span class="strike">$${product.SuggestedRetailPrice}</span></p>`;

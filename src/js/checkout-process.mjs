@@ -4,7 +4,6 @@ import { addAlert, getLocalStorage, setLocalStorage } from "./utils.mjs";
 function packageItems(formData) {
   let jsonData = {};
   formData.forEach((value, key) => {
-    console.log(value, key);
     jsonData[key] = value;
   });
   jsonData["items"] = this.cart.map((item) => {
