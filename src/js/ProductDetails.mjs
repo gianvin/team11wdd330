@@ -1,6 +1,7 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { addAlert, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
+  console.log(product)
   let price = "";
   if (product.FinalPrice < product.SuggestedRetailPrice) {
     price = `<p class="product-card__price discount">$${product.FinalPrice} <span class="strike">$${product.SuggestedRetailPrice}</span></p>`;
@@ -11,10 +12,24 @@ function productDetailsTemplate(product) {
         <h3>${product.Brand.Name}</h3>
         <h2 classs="divider">${product.NameWithoutBrand}</h2>
         <picture>
-            <source srcset="${product.Images.PrimaryExtraLarge}" media="(min-width: 768px)">
-            <source srcset="${product.Images.PrimaryLarge}" media="(min-width: 400px)">
-            <img class="divider" src="${product.Images.PrimaryMedium}" alt="${product.Name}">
-        </picture>
+            <!-- <source srcset="${product.Images.PrimaryExtraLarge}" media="(min-width: 768px)">-->
+            <!-- <source srcset="${product.Images.PrimaryLarge}" media="(min-width: 400px)">-->
+            <img class="divider" src="${product.Images.PrimaryLarge}" alt="${product.Name}">
+          </picture>
+        <div class="extraImages">
+            <button class="extraImage">
+              <img src="${product.Images.PrimaryLarge}" alt="${product.Name}" width="100" height="100">
+            </button>
+          ${
+            product.Images.ExtraImages?.length ? 
+            product.Images.ExtraImages?.map(image => {
+              return `
+              <button class="extraImage">
+                <img src="${image.Src}" alt="${image.Title}" width="100" height="100">
+              </button>`
+            }).join("") : ""
+          }
+        </div>
         ${price}
         <p class="product__color">${product.Colors[0].ColorName}</p>
         <p class="product__description">${product.DescriptionHtmlSimple}</p>
@@ -38,6 +53,8 @@ export default class ProductDetails {
       .addEventListener("click", this.addToCart.bind(this));
   }
   addToCart() {
+    document.getElementById("alerts").innerHTML = ""
+    addAlert("Item added successfully!");
     let cart = getLocalStorage("so-cart");
     if (cart === null || !Array.isArray(cart)) cart = [];
 
