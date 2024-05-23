@@ -1,5 +1,16 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.value.includes("quickView")) {
+    document.querySelector("#quickView p").innerHTML =
+      e.target.getAttribute("data-name");
+    document.querySelector("#quickView iframe").src =
+      `${window.location.origin}/product_pages/index.html?product=${e.target.getAttribute("data-list")}`;
+    document.getElementById("quickView").style.display = "grid";
+  }
+});
+
 function productCardTemplate(product) {
   let price = ""
   if(product.FinalPrice < product.SuggestedRetailPrice){
@@ -13,8 +24,9 @@ function productCardTemplate(product) {
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.Name}</h2>
         ${price}
-      </a>
-    </li>`;
+        </a>
+        <button data-name="${product.Name}" data-list=${product.Id} class="quickView">Quick View</button>
+      </li>`;
 }
 
 export default class ProductListing {

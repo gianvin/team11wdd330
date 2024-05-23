@@ -72,3 +72,15 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+export function addAlert(msg){
+  const alert = document.createElement('div');
+  alert.innerHTML = msg;
+  let button = document.createElement('button');
+  button.innerHTML = 'x';
+  button.addEventListener('click', () => {
+    alert.remove();
+  });
+  alert.appendChild(button);
+  document.getElementById("alerts").appendChild(alert);
+}
