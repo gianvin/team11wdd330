@@ -2,6 +2,8 @@ import { getParam, loadHeaderFooter } from "./utils.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
+loadHeaderFooter();
+
 const dataSource = new ExternalServices("tents");
 const productId = getParam("product");
 

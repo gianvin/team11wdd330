@@ -1,37 +1,36 @@
-const baseURL = import.meta.env.VITE_SERVER_URL;
+const baseURL = "http://server-nodejs.cit.byui.edu:3000/";
 
-function convertToJson(res) {
-  let json = res.json();
+async function convertToJson(res) {
+  const json = await res.json();
   if (res.ok) {
     return json;
   } else {
-    throw new { name: "servicesError", message: json }();
+    throw { name: "servicesError", message: json };
   }
 }
 
 export default class ExternalServices {
   async getData(category) {
-    const res = await fetch(baseURL + `products/search/${category}`);
-    const data = await convertToJson(res);
-    return data.Result;
+    const response = await fetch(baseURL + `products/search/${category}`);
+    const json = await convertToJson(response);
+    return json.Result;
   }
 
   async findProductById(id) {
-    const res = await fetch(`${baseURL}product/${id}`);
-    const product = await convertToJson(res);
-    return product.Result;
+    const response = await fetch(`${baseURL}product/${id}`);
+    const json = await convertToJson(response);
+    return json.Result;
   }
 
-  static async checkout(data) {
-
+  async checkout(payload) {
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     };
-    return await fetch("http://server-nodejs.cit.byui.edu:3000/checkout", options)
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
     // return await fetch("https://wdd330-backend.onrender.com:3000/checkout", options)
   }
 }

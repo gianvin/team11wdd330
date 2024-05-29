@@ -73,14 +73,26 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener("click", callback);
 }
 
-export function addAlert(msg){
-  const alert = document.createElement('div');
-  alert.innerHTML = msg;
-  let button = document.createElement('button');
-  button.innerHTML = 'x';
-  button.addEventListener('click', () => {
-    alert.remove();
+// eslint-disable-next-line no-unused-vars
+export function addAlert(msg, scroll = true, duration = 3000){
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = `<p>${msg}</p><span>X</span>`;
+  //let button = document.createElement('button');
+  //button.innerHTML = 'x';
+  alert.addEventListener("click", function (e) {
+    if (e.target.tagName == "SPAN") {
+      main.removeChild(this);
+    }
   });
-  alert.appendChild(button);
-  document.getElementById("alerts").appendChild(alert);
+  const main = document.querySelector("main");
+  main.prepend(alert);
+  //alert.appendChild(button);
+  //document.getElementById("alerts").appendChild(alert);
+  if (scroll) window.scrollTo(0, 0);
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
 }

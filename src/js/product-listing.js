@@ -14,6 +14,6 @@ productListing.init();
 loadHeaderFooter();
 
 document.addEventListener("DOMContentLoaded", () => {
-    const alert = new Alert("alerts.json");
-    alert.displayAlerts();
-  });
+  const alert = new Alert("alerts.json");
+  alert.displayAlerts();
+});

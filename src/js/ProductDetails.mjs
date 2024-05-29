@@ -21,12 +21,10 @@ function productDetailsTemplate(product) {
             </button>
           ${
             product.Images.ExtraImages?.length ? 
-            product.Images.ExtraImages?.map(image => {
-              return `
+            product.Images.ExtraImages?.map(image => `
               <button class="extraImage">
-                <img src="${image.Src}" alt="${image.Title}" width="100" height="100">
-              </button>`
-            }).join("") : ""
+              <img src="${image.Src}" alt="${image.Title}" width="100" height="100">
+              </button>`).join("") : ""
           }
         </div>
         ${price}
@@ -61,7 +59,7 @@ export default class ProductDetails {
     let productInCart = cart.find((item) => item.Id === this.product.Id);
     if (productInCart) {
       let index = cart.indexOf(productInCart);
-      cart[index].qty = cart[index].qty+1 || 1;
+      cart[index].qty = cart[index].qty + 1 || 1;
     } else {
         this.product.qty = 1;
       cart.push(this.product);
